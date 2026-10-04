@@ -1,0 +1,90 @@
+name: Market check
+
+# Daily: compare the SR22T bridge aircraft's value with Cirrus's pre-owned
+# listings. Never changes costing — Raymond approves any change in the costing
+# editor (https://sf50-costing.compilotrc.workers.dev/sr22t). When the set of proposals changes, a comment on
+# the open "market-check" issue e-mails him; when none remain, the issue closes.
+#
+# Closing the issue by hand DECLINES those exact proposals: the check stays quiet
+# until the market moves to different figures, then opens a new issue.
+on:
+  schedule:
+    - cron: '25 11 * * *'     # ~7:25 AM Eastern, after the SF50 check
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: market-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the market
+        run: python3 tools/market_check.py | tee summary.md
+
+      - name: Notify through the market-check issue
+        run: |
+          gh label create market-check --color FF6700 --description "SR22T market price proposals" 2>/dev/null || true
+          sig=$(python3 -c "import json;print(json.dumps(json.load(open('data/market.json'))['proposals'],sort_keys=True))")
+          count=$(python3 -c "import json;print(len(json.load(open('data/market.json'))['proposals']))")
+          issue=$(gh issue list --label market-check --state open --json number -q '.[0].number')
+          marker="<!-- proposals: $sig -->"
+          # Most recently closed issue — if it carries this exact marker, these proposals were declined
+          declined=$(gh issue list --label market-check --state closed --limit 1 --json body -q '.[0].body' | grep -cF "$marker" || true)
+          is_declined=false
+          if [ "$count" != "0" ] && [ -z "$issue" ] && [ "$declined" != "0" ]; then
+            echo "Proposals unchanged since Raymond declined them — staying quiet."
+            is_declined=true
+          elif [ "$count" != "0" ]; then
+            body="$(cat summary.md)"$'\n\n'"$marker"
+            if [ -z "$issue" ]; then
+              gh issue create --title "SR22T bridge aircraft market value moved — review in the costing editor" --label market-check --body "$body"
+            elif ! gh issue view "$issue" --json body -q .body | grep -qF "$marker"; then
+              gh issue edit "$issue" --body "$body"
+              gh issue comment "$issue" --body "$(cat summary.md)"
+            fi
+          elif [ -n "$issue" ]; then
+            # Clear the marker before closing, so this automatic close can never be
+            # read later as Raymond declining these proposals.
+            gh issue edit "$issue" --body "$(gh issue view "$issue" --json body -q .body | sed 's/<!-- proposals: .* -->/<!-- proposals: resolved -->/')"
+            gh issue close "$issue" --comment "No proposed changes remain — the published prices match the market. $(date -u +%Y-%m-%d)"
+          fi
+          # The editor shows declined proposals as declined instead of offering Apply
+          python3 - "$is_declined" <<'PY2'
+          import json, sys
+          m = json.load(open('data/market.json'))
+          m['declined'] = sys.argv[1] == 'true'
+          open('data/market.json', 'w').write(json.dumps(m, indent=2) + '\n')
+          PY2
+
+      - name: Save the snapshot when it changed
+        run: |
+          # checkedAt changes every run; only commit when the substance changed
+          python3 - <<'PY'
+          import json, subprocess, sys
+          new = json.load(open('data/market.json'))
+          try:
+              old = json.loads(subprocess.run(['git', 'show', 'HEAD:data/market.json'], capture_output=True, text=True, check=True).stdout)
+          except subprocess.CalledProcessError:
+              old = {}
+          strip = lambda d: {k: v for k, v in d.items() if k != 'checkedAt'}
+          open('changed', 'w').write('1' if strip(new) != strip(old) else '0')
+          PY
+          if [ "$(cat changed)" = "1" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/market.json
+            git commit -m "Market check $(date -u +%Y-%m-%d) [skip ci]"
+            git pull --rebase -q && git push -q
+          else
+            git checkout -- data/market.json
+          fi

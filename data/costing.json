@@ -1,0 +1,72 @@
+{
+  "version": "v2026-10-04.1",
+  "publishedAt": "2026-10-04T23:03:52.890Z",
+  "note": "First SR22T costing: figures from the 2026 SR22T G7+ Ownership Pricing Overview (15-share program, export 2026-09-21), matching the live calculator.",
+  "baseline": "G7+",
+  "common": {
+    "fixedCost": 91508,
+    "closing": 6140,
+    "taxRate": 0.078,
+    "commissionRate": 0,
+    "market": {
+      "roundTo": 25000,
+      "maxListingAgeDays": 90
+    }
+  },
+  "featureLabels": {
+    "connectivity": "In-flight connectivity",
+    "safeReturn": "Garmin Safe Return emergency autoland"
+  },
+  "programs": [
+    {
+      "key": "G7+",
+      "approx": false,
+      "shares": 15,
+      "sharesRemaining": 14,
+      "maxHours": 96,
+      "basePrice": 1304900,
+      "options": 90600,
+      "connectivityCost": 3851,
+      "management": 240000,
+      "reserve": 178129,
+      "features": {
+        "connectivity": {
+          "status": "included",
+          "detail": "Starlink"
+        },
+        "safeReturn": {
+          "status": "included",
+          "standard": true
+        }
+      }
+    }
+  ],
+  "bridge": {
+    "model": "2022 Cirrus SR22T G6 GTS",
+    "value": 880000,
+    "monthlyLoan": 5600,
+    "monthlyInsurance": 4000,
+    "leaseRate": 418,
+    "leaseMinRate": 375,
+    "leaseHoursPerMonth": 14,
+    "market": {
+      "model": "SR22T",
+      "generation": "G6",
+      "variation": "GTS",
+      "yearFrom": 2021,
+      "yearTo": 2023
+    },
+    "features": {
+      "safeReturn": {
+        "status": "excluded",
+        "detail": "introduced with the G7+"
+      }
+    }
+  },
+  "sensitivitySteps": [
+    5000,
+    10000,
+    25000,
+    50000
+  ]
+}
