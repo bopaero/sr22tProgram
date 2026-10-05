@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-10-04T23:09:17+00:00",
+  "checkedAt": "2026-10-05T01:00:09+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
-  "costingVersion": "v2026-10-04.1",
+  "costingVersion": "v2026-10-04.2",
   "feedListings": 369,
   "modelListings": 131,
   "excluded": {
@@ -13,7 +13,7 @@
     "stale": 18
   },
   "bridge": {
-    "current": 880000,
+    "purchasePrice": 880000,
     "model": "SR22T",
     "generation": "G6",
     "variation": "GTS",
@@ -272,15 +272,8 @@
       }
     ],
     "median": 849900,
-    "proposed": 850000
+    "marketValue": 850000
   },
-  "proposals": [
-    {
-      "target": "bridge",
-      "field": "value",
-      "from": 880000,
-      "to": 850000
-    }
-  ],
+  "proposals": [],
   "declined": false
 }
