@@ -1,7 +1,7 @@
 # bop Aero — 2026 SR22T G7+ Ownership Program
 
-Live (unlisted): https://bopaero.github.io/sr22tProgram/ — moves to
-https://sr22tprogram.bopaero.com once that DNS record exists.
+Live (unlisted): https://sr22tprogram.bopaero.com (custom domain + HTTPS since
+2026-10-04; bopaero.github.io/sr22tProgram redirects here).
 
 Set up 2026-10-04 the same way as the SF50 program (`bopaero/sf50Program`):
 
