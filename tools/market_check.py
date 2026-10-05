@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SR22T market check — compares the bridge aircraft's value with the market.
+"""SR22T market check — the bridge aircraft's current market value, for information.
 
     python3 tools/market_check.py            # check, write data/market.json
     python3 tools/market_check.py --dry-run  # check and print only
@@ -9,9 +9,13 @@ Source: Cirrus's public listings feed behind cirrusaircraft.com/pre-owned/.
 The comparables are listings that match the bridge aircraft's `market`
 settings in data/costing.json (model, generation, variation, model years), are
 available (not sold, not pending), carry a plausible price, and were updated
-within `maxListingAgeDays`. The proposed value is their median asking price
-rounded to `roundTo`. A proposal exists only when that differs from the
-published value.
+within `maxListingAgeDays`. Their median asking price, rounded to `roundTo`, is
+the aircraft's estimated market value.
+
+INFORMATION ONLY (Raymond, 2026-10-04): the costing holds the bridge aircraft's
+PURCHASE PRICE ($880,000, what bop Aero paid), which the market never changes.
+So this check proposes nothing and opens no issue; the costing editor shows the
+market value beside the purchase price.
 
 The new SR22T G7+ GTS price is NOT checked: the SR22T price Cirrus shows on
 that page ($934,500 "SR22T GTS" in Oct 2026) is not the G7+ GTS list price
@@ -150,7 +154,7 @@ def main():
     comps = sorted((it for it in listings if it['generation'] == m['generation']
                     and (not m.get('variation') or it['variation'] == m['variation'])
                     and m['yearFrom'] <= it['year'] <= m['yearTo']), key=lambda it: it['price'])
-    entry = {'current': bridge['value'], 'model': m['model'], 'generation': m['generation'], 'variation': m.get('variation', ''),
+    entry = {'purchasePrice': bridge['purchasePrice'], 'model': m['model'], 'generation': m['generation'], 'variation': m.get('variation', ''),
              'years': [m['yearFrom'], m['yearTo']], 'count': len(comps), 'comparables': comps}
     result = {'checkedAt': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds'),
               'source': 'cirrusaircraft.com pre-owned listings', 'roundTo': mconf['roundTo'],
@@ -159,9 +163,8 @@ def main():
               'bridge': entry, 'proposals': []}
     if comps:
         med = statistics.median(it['price'] for it in comps)
-        entry.update(median=med, proposed=round_to(med, mconf['roundTo']))
-        if entry['proposed'] != bridge['value']:
-            result['proposals'].append({'target': 'bridge', 'field': 'value', 'from': bridge['value'], 'to': entry['proposed']})
+        entry.update(median=med, marketValue=round_to(med, mconf['roundTo']))
+    # result['proposals'] stays empty: nothing in the costing follows the market
 
     print(summary(result))
     if not dry:
@@ -174,17 +177,14 @@ def summary(r):
     def usd(n): return '$' + format(int(round(n)), ',')
     e = r['bridge']
     lines = ['**SR22T market check** — %s, against costing %s' % (r['checkedAt'][:16].replace('T', ' ') + ' UTC', r['costingVersion']), '']
-    lines += ['| Aircraft | Published | Market median | Proposed | Comparables |', '|---|---|---|---|---|']
+    lines += ['| Aircraft | Purchase price | Market median | Est. market value | Comparables |', '|---|---|---|---|---|']
     lines.append('| Bridge aircraft (%s %s %s %d–%d) | %s | %s | %s | %d |' % (
-        e['model'], e['generation'], e['variation'], e['years'][0], e['years'][1], usd(e['current']),
-        usd(e['median']) if e.get('median') else '—',
-        (usd(e['proposed']) if e.get('proposed') != e['current'] else 'no change') if e.get('proposed') else 'no comparables',
+        e['model'], e['generation'], e['variation'], e['years'][0], e['years'][1], usd(e['purchasePrice']),
+        usd(e['median']) if e.get('median') else '—', usd(e['marketValue']) if e.get('marketValue') else 'no comparables',
         e['count']))
     ex = ', '.join('%d %s' % (v, k) for k, v in r['excluded'].items() if v)
     lines += ['', 'From %d %s listings in the feed%s.' % (r['modelListings'], e['model'], ' (excluded: ' + ex + ')' if ex else '')]
-    lines += ['', 'The new SR22T G7+ GTS price is not checked automatically: update it from the Cirrus price list.']
-    lines += ['', ('**%d proposed change%s** — review and publish in the costing editor: https://sf50-costing.compilotrc.workers.dev/sr22t'
-                   % (len(r['proposals']), '' if len(r['proposals']) == 1 else 's')) if r['proposals'] else 'No changes proposed.']
+    lines += ['', 'Information only: the costing keeps the purchase price. The new SR22T G7+ GTS price is not checked automatically: update it from the Cirrus price list.']
     return '\n'.join(lines)
 
 

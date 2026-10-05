@@ -94,7 +94,7 @@ button.small { font-size:12px; padding:5px 10px; }
       <p class="muted" id="bridgeModel"></p>
       <div class="tw"><table class="common"><tbody id="bridgeRows"></tbody></table></div>
       <div class="tw" style="margin-top:10px"><table><thead><tr><th>Bridge economics</th><th>Published</th><th>Draft</th></tr></thead><tbody id="bridgeRes"></tbody></table></div>
-      <p class="muted">Carrying cost = loan + insurance. Lease revenue = retail dry-lease rate × average monthly hours. The document names the bridge aircraft and its equipment, never these figures.</p>
+      <p class="muted">Lease terms are the bop Aero SR22T Leasing Program on this aircraft (bopaero.com/sr22t-leasing-program). Break-even counts the included hours plus additional hours at the additional-hour rate. The document names the bridge aircraft and its equipment, never these figures.</p>
     </section>
 
     <section class="panel" style="margin-top:16px">
@@ -159,18 +159,21 @@ button.small { font-size:12px; padding:5px 10px; }
   ];
   // Bridge aircraft: [path in costing.bridge, label, kind]
   var BRIDGE_FIELDS = [
-    ['value', 'Aircraft value', 'money'],
+    ['purchasePrice', 'Purchase price (what bop Aero paid)', 'money'],
     ['monthlyLoan', 'Loan payment (monthly)', 'money'],
     ['monthlyInsurance', 'Insurance (monthly)', 'money'],
-    ['leaseRate', 'Retail dry-lease rate (per hour)', 'money'],
-    ['leaseMinRate', 'Minimum dry-lease rate (per hour)', 'money'],
-    ['leaseHoursPerMonth', 'Dry-lease hours (monthly average)', 'int'],
+    ['leaseMonthly', 'Leasing Program: monthly lease price', 'money'],
+    ['leaseIncludedHours', 'Leasing Program: hours included per month', 'int'],
+    ['leaseExtraHourRate', 'Leasing Program: each additional hour', 'money'],
+    ['leaseHourlyRate', 'Leasing Program: hourly lease rate', 'money'],
     ['market.yearFrom', 'Market comparables: model year from', 'year'],
     ['market.yearTo', 'Market comparables: model year to', 'year']
   ];
   var BRIDGE_RESULTS = [
-    ['tax', 'Use tax on value'], ['monthlyCost', 'Carrying cost / month'], ['monthlyLease', 'Lease revenue / month (avg hours)'],
-    ['monthlyNet', 'Net / month'], ['annualNet', 'Net / year'], ['breakEvenHours', 'Lease hours / month to cover carrying cost', 'hours']
+    ['tax', 'Use tax on purchase price'], ['monthlyCost', 'Carrying cost / month (loan + insurance)'],
+    ['monthlyLease', 'Lease revenue / month (one monthly lease)'], ['includedHourRate', 'Effective rate of the included hours'],
+    ['monthlyNet', 'Net / month'], ['annualNet', 'Net / year'],
+    ['breakEvenHours', 'Leased hours / month to cover carrying cost', 'hours']
   ];
   var STATUS_LABELS = SR22TCosting.FEATURE_TEXT;     // the same wording the document and calculator show
   function progFields() {
@@ -345,51 +348,31 @@ button.small { font-size:12px; padding:5px 10px; }
       marketData = j; renderMarket();
     }).catch(function (e) { $('marketBody').textContent = 'Could not load the market check: ' + e.message; });
   }
-  function marketProposals() {
-    var m = marketData && marketData.market, out = [];
-    if (!m || !published || !published.bridge || !m.bridge) return out;
-    var e = m.bridge;
-    if (e.proposed !== undefined && e.proposed !== published.bridge.value)
-      out.push({ path: 'value', from: published.bridge.value, to: e.proposed,
-                 why: 'median of ' + e.count + ' Cirrus-listed ' + e.years[0] + '–' + e.years[1] + ' ' + e.model + ' ' + e.generation + ' ' + e.variation + (e.count === 1 ? '' : 's') });
-    return out;
-  }
+  // Information only (Raymond, 2026-10-04): the costing keeps the bridge aircraft's
+  // purchase price, which the market never changes. Nothing here can be applied.
   function renderMarket() {
     var j = marketData, m = j && j.market, body = $('marketBody');
     var run = j && j.lastRun;
     $('marketWhen').innerHTML = run ? 'last checked ' + new Date(run.at).toLocaleString() +
       (run.status === 'completed' && run.conclusion !== 'success' ? ' <span class="chip">last check failed</span>' : '') : '';
     if (!m || !m.bridge || !published.bridge) { body.textContent = 'No market check has run yet. It runs daily at about 7:25 AM Eastern.'; return; }
-    var e = m.bridge, props = marketProposals();
+    var e = m.bridge, mv = e.marketValue !== undefined ? e.marketValue : e.proposed;
     var list = (e.comparables || []).map(function (c) {
       return '<tr><td>' + c.year + '</td><td><a href="' + c.link + '" target="_blank" rel="noopener">' + c.registration + '</a></td><td>' +
         (c.hours != null ? c.hours.toLocaleString() + ' hrs' : '') + '</td><td>' + money(c.price) + '</td><td class="muted">' + c.modified + '</td></tr>';
     }).join('');
-    var moved = e.proposed !== undefined && e.proposed !== published.bridge.value;
-    var h = '<div class="tw"><table class="mkt' + (m.declined ? ' declined' : '') + '"><thead><tr><th></th><th>Published</th><th>Market</th><th>Proposed</th></tr></thead><tbody>' +
+    var paid = published.bridge.purchasePrice, gap = mv !== undefined ? mv - paid : null;
+    var h = '<div class="tw"><table class="mkt"><thead><tr><th></th><th>Purchase price</th><th>Market median</th><th>Est. market value</th></tr></thead><tbody>' +
       '<tr><td>Bridge aircraft — ' + e.model + ' ' + e.generation + ' ' + e.variation + ' ' + e.years[0] + '–' + e.years[1] +
       '<details><summary>' + e.count + ' comparable' + (e.count === 1 ? '' : 's') + '</summary>' +
       (list ? '<table><tbody>' + list + '</tbody></table>' : '<div class="muted">None available — adjust the model years below if this persists.</div>') + '</details></td>' +
-      '<td>' + money(published.bridge.value) + '</td><td>' + (e.median !== undefined ? money(e.median) : '—') + '</td>' +
-      '<td class="' + (moved ? 'prop' : 'same') + '">' + (e.proposed === undefined ? 'no comparables' : moved ? money(e.proposed) : 'matches') + '</td></tr></tbody></table></div>';
+      '<td>' + money(paid) + '</td><td>' + (e.median !== undefined ? money(e.median) : '—') + '</td>' +
+      '<td>' + (mv !== undefined ? money(mv) + '<div class="muted">' + (gap < 0 ? '−' : '+') + money(Math.abs(gap)) + ' vs. paid</div>' : 'no comparables') + '</td></tr></tbody></table></div>';
     var ex = m.excluded ? Object.keys(m.excluded).filter(function (k) { return m.excluded[k]; }).map(function (k) { return m.excluded[k] + ' ' + k; }).join(', ') : '';
-    h += '<p class="muted">Median asking price of available listings updated in the last ' + m.maxListingAgeDays + ' days, rounded to ' + money(m.roundTo) +
-         '. From ' + m.modelListings + ' ' + e.model + ' listings on cirrusaircraft.com' + (ex ? ' (excluded: ' + ex + ')' : '') + '. Asking prices, not sale prices. ' +
-         'The new G7+ GTS price is not checked automatically — update the base price from the Cirrus price list.</p>';
-    if (props.length && m.declined) h += '<p class="muted"><b>Declined</b> — you closed the market-check notice for these figures. ' +
-      'You won\'t be notified again unless the market moves to different figures. You can still apply them here.</p>';
-    if (props.length) h += '<div class="row"><button class="' + (m.declined ? 'secondary' : 'primary') + ' small" id="applyMarket">Apply the proposed value to the editor</button>' +
-                           '<span class="muted">Fills the figure in below. Nothing is published until you publish.</span></div>';
+    h += '<p class="muted">For information: the costing keeps the purchase price. Median asking price of available listings updated in the last ' + m.maxListingAgeDays +
+         ' days, rounded to ' + money(m.roundTo) + '. From ' + m.modelListings + ' ' + e.model + ' listings on cirrusaircraft.com' + (ex ? ' (excluded: ' + ex + ')' : '') +
+         '. Asking prices, not sale prices. The new G7+ GTS price is not checked automatically — update the base price from the Cirrus price list.</p>';
     body.innerHTML = h;
-    var btn = $('applyMarket');
-    if (btn) btn.addEventListener('click', function () {
-      var x = props[0];
-      draft.bridge.value = x.to;
-      buildBridge(); refresh();
-      var el = $('b_value'); if (el) el.classList.toggle('changed', draft.bridge.value !== published.bridge.value);
-      if (!$('note').value.trim()) $('note').value = 'Market update: bridge aircraft value ' + money(x.from) + ' → ' + money(x.to) + ' (' + x.why + ')';
-      setStatus('Market value applied below — check the bridge economics, then Review & publish.', '');
-    });
   }
 
   function refresh() {

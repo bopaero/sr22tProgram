@@ -1,7 +1,7 @@
 {
-  "version": "v2026-10-04.1",
-  "publishedAt": "2026-10-04T23:03:52.890Z",
-  "note": "First SR22T costing: figures from the 2026 SR22T G7+ Ownership Pricing Overview (15-share program, export 2026-09-21), matching the live calculator.",
+  "version": "v2026-10-04.2",
+  "publishedAt": "2026-10-05T00:57:48.039Z",
+  "note": "Bridge aircraft: $880,000 is the purchase price (fixed); lease terms now the current SR22T Leasing Program ($5,208/month incl. 14 hrs, $372 extra hour, $410 hourly). No program figures changed.",
   "baseline": "G7+",
   "common": {
     "fixedCost": 91508,
@@ -43,12 +43,13 @@
   ],
   "bridge": {
     "model": "2022 Cirrus SR22T G6 GTS",
-    "value": 880000,
+    "purchasePrice": 880000,
     "monthlyLoan": 5600,
     "monthlyInsurance": 4000,
-    "leaseRate": 418,
-    "leaseMinRate": 375,
-    "leaseHoursPerMonth": 14,
+    "leaseMonthly": 5208,
+    "leaseIncludedHours": 14,
+    "leaseExtraHourRate": 372,
+    "leaseHourlyRate": 410,
     "market": {
       "model": "SR22T",
       "generation": "G6",

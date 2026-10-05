@@ -41,12 +41,14 @@
     taxRate:          { min: 0,    max: 0.2 },
     commissionRate:   { min: 0,    max: 0.1 },     // sales commission, on aircraft acquisition value
     // Bridge aircraft
-    value:            { min: 1e5,  max: 3e6 },
+    purchasePrice:    { min: 1e5,  max: 3e6 },     // what bop Aero paid (fixed; not a market estimate)
     monthlyLoan:      { min: 0,    max: 1e5 },
     monthlyInsurance: { min: 0,    max: 5e4 },
-    leaseRate:        { min: 0,    max: 5000 },    // retail dry-lease rate per hour
-    leaseMinRate:     { min: 0,    max: 5000 },    // minimum dry-lease rate per hour
-    leaseHoursPerMonth:{ min: 0,   max: 300 }
+    // The bop Aero SR22T Leasing Program (bopaero.com/sr22t-leasing-program)
+    leaseMonthly:     { min: 0,    max: 1e5 },     // monthly lease price, prepaid
+    leaseIncludedHours:{ min: 0,   max: 300, integer: true },   // hours included in the monthly lease
+    leaseExtraHourRate:{ min: 0,   max: 5000 },    // per hour beyond the included hours
+    leaseHourlyRate:  { min: 0,    max: 5000 }     // hourly lease (case by case)
   };
 
   function checkNumber(errors, where, field, value) {
@@ -113,8 +115,7 @@
     if (c.bridge !== undefined) {
       var b = c.bridge || {};
       if (typeof b.model !== 'string' || !b.model.trim()) errors.push('bridge aircraft model is missing');
-      ['value', 'monthlyLoan', 'monthlyInsurance', 'leaseRate', 'leaseMinRate', 'leaseHoursPerMonth'].forEach(function (f) { checkNumber(errors, 'bridge', f, b[f]); });
-      if (b.leaseMinRate > b.leaseRate) errors.push('bridge minimum lease rate is above the retail lease rate');
+      ['purchasePrice', 'monthlyLoan', 'monthlyInsurance', 'leaseMonthly', 'leaseIncludedHours', 'leaseExtraHourRate', 'leaseHourlyRate'].forEach(function (f) { checkNumber(errors, 'bridge', f, b[f]); });
       if (b.market !== undefined) {
         var m = b.market || {};
         if (typeof m.model !== 'string' || !m.model) errors.push('bridge comparables model is missing');
@@ -167,14 +168,18 @@
       var b = c.bridge;
       bridge = {};
       for (var bk in b) bridge[bk] = b[bk];
-      bridge.tax              = Math.round(b.value * common.taxRate);
+      bridge.tax              = Math.round(b.purchasePrice * common.taxRate);
       bridge.monthlyCost      = b.monthlyLoan + b.monthlyInsurance;          // carrying cost while it serves the program
       bridge.annualCost       = bridge.monthlyCost * 12;
-      bridge.monthlyLease     = Math.round(b.leaseRate * b.leaseHoursPerMonth);   // dry-lease revenue at the average hours
-      bridge.annualLease      = bridge.monthlyLease * 12;
+      // Revenue from one monthly lease (included hours only), all year
+      bridge.monthlyLease     = b.leaseMonthly;
+      bridge.annualLease      = b.leaseMonthly * 12;
+      bridge.includedHourRate = b.leaseIncludedHours ? b.leaseMonthly / b.leaseIncludedHours : null;   // effective rate of the included hours
       bridge.monthlyNet       = bridge.monthlyLease - bridge.monthlyCost;
       bridge.annualNet        = bridge.monthlyNet * 12;
-      bridge.breakEvenHours   = b.leaseRate ? bridge.monthlyCost / b.leaseRate : null;   // lease hours a month to cover the carrying cost
+      // Hours a month, included + extra, for one monthly lease to cover the carrying cost
+      bridge.breakEvenHours   = bridge.monthlyNet >= 0 ? b.leaseIncludedHours
+                              : b.leaseExtraHourRate ? b.leaseIncludedHours + (-bridge.monthlyNet) / b.leaseExtraHourRate : null;
       if (b.features) bridge.features = deriveFeatures(b.features);
     }
     return {

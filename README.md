@@ -23,9 +23,11 @@ matching the live calculator.
   Future Value Reserve, sales commission rate (0% for now; never its own line in
   anything a customer sees — folded into the acquisition / closing line).
 - `bridge`: the pre-owned bridge aircraft (2022 SR22T G6 GTS) owners fly until the
-  new aircraft is delivered — value, loan and insurance (carrying cost), dry-lease
-  rates and average hours. **Internal economics**: shown in the costing editor
-  only. The document names the bridge aircraft and its equipment, never its costs.
+  new aircraft is delivered — purchase price ($880,000, what bop Aero paid; fixed),
+  loan and insurance (carrying cost), and the bop Aero SR22T Leasing Program terms
+  on this aircraft ($5,208/month incl. 14 hours, $372 additional hour, $410 hourly).
+  **Internal economics**: shown in the costing editor only. The document names the
+  bridge aircraft and its equipment, never its costs.
 
 ## Changing costing — the costing editor
 
@@ -37,8 +39,9 @@ matching the live calculator.
 
 ## Market check
 
-`.github/workflows/market-check.yml` (daily) compares the bridge aircraft's value
-with the median asking price of comparable Cirrus-listed aircraft and proposes
-changes through a `market-check` issue. Closing the issue declines those figures.
+`.github/workflows/market-check.yml` (daily) estimates the bridge aircraft's
+current market value from the median asking price of comparable Cirrus-listed
+aircraft. **Information only** — shown in the editor beside the purchase price;
+it proposes nothing and opens no issue (the purchase price never follows the market).
 The new SR22T G7+ price is not checked automatically (Cirrus's public page does
 not show the G7+ GTS list price) — update it from the Cirrus price list.

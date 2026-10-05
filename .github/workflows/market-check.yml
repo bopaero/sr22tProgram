@@ -1,8 +1,9 @@
 name: Market check
 
-# Daily: compare the SR22T bridge aircraft's value with Cirrus's pre-owned
-# listings. Never changes costing — Raymond approves any change in the costing
-# editor (https://sf50-costing.compilotrc.workers.dev/sr22t). When the set of proposals changes, a comment on
+# Daily: the SR22T bridge aircraft's current market value from Cirrus's pre-owned
+# listings — INFORMATION ONLY, shown in the costing editor beside the purchase
+# price (https://sf50-costing.compilotrc.workers.dev/sr22t). It proposes nothing,
+# so the issue step below never opens an issue (it is kept for parity with the SF50). When the set of proposals changes, a comment on
 # the open "market-check" issue e-mails him; when none remain, the issue closes.
 #
 # Closing the issue by hand DECLINES those exact proposals: the check stays quiet
