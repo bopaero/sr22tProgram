@@ -1,16 +1,16 @@
 {
-  "checkedAt": "2026-10-05T01:00:09+00:00",
+  "checkedAt": "2026-10-06T17:18:50+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
   "costingVersion": "v2026-10-04.2",
-  "feedListings": 369,
-  "modelListings": 131,
+  "feedListings": 366,
+  "modelListings": 132,
   "excluded": {
-    "sold or pending": 29,
+    "sold or pending": 30,
     "no price": 4,
     "implausible price": 0,
-    "stale": 18
+    "stale": 21
   },
   "bridge": {
     "purchasePrice": 880000,
@@ -21,7 +21,7 @@
       2021,
       2023
     ],
-    "count": 19,
+    "count": 15,
     "comparables": [
       {
         "registration": "N585TX",
@@ -85,19 +85,6 @@
         "price": 799000,
         "modified": "2026-09-30",
         "link": "https://lonemountainaircraft.com/inventory/n461mg/",
-        "certified": false,
-        "available": true
-      },
-      {
-        "registration": "N415JT",
-        "serial": "2314",
-        "year": 2021,
-        "generation": "G6",
-        "variation": "GTS",
-        "hours": 770,
-        "price": 799000,
-        "modified": "2026-07-07",
-        "link": "https://lonemountainaircraft.com/inventory/n415jt/",
         "certified": false,
         "available": true
       },
@@ -180,19 +167,6 @@
         "available": true
       },
       {
-        "registration": "N919GK",
-        "serial": "2413",
-        "year": 2021,
-        "generation": "G6",
-        "variation": "GTS",
-        "hours": 395,
-        "price": 875000,
-        "modified": "2026-08-24",
-        "link": "https://lonemountainaircraft.com/inventory/n919gk/",
-        "certified": false,
-        "available": true
-      },
-      {
         "registration": "N836ZJ",
         "serial": "9063",
         "year": 2023,
@@ -215,32 +189,6 @@
         "price": 879900,
         "modified": "2026-09-18",
         "link": "https://lonemountainaircraft.com/inventory/n912yz/",
-        "certified": false,
-        "available": true
-      },
-      {
-        "registration": "N412YZ",
-        "serial": "9089",
-        "year": 2023,
-        "generation": "G6",
-        "variation": "GTS",
-        "hours": 425,
-        "price": 879900,
-        "modified": "2026-08-08",
-        "link": "https://aerista.com/showroom/n412yz/",
-        "certified": false,
-        "available": true
-      },
-      {
-        "registration": "N174MH",
-        "serial": "9038",
-        "year": 2023,
-        "generation": "G6",
-        "variation": "GTS",
-        "hours": 470,
-        "price": 885000,
-        "modified": "2026-07-06",
-        "link": "https://lonemountainaircraft.com/inventory/n174mh/",
         "certified": false,
         "available": true
       },
@@ -271,7 +219,7 @@
         "available": true
       }
     ],
-    "median": 849900,
+    "median": 839900,
     "marketValue": 850000
   },
   "proposals": [],
