@@ -1,16 +1,16 @@
 {
-  "checkedAt": "2026-10-06T17:18:50+00:00",
+  "checkedAt": "2026-10-07T17:52:06+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
   "costingVersion": "v2026-10-04.2",
-  "feedListings": 366,
+  "feedListings": 368,
   "modelListings": 132,
   "excluded": {
     "sold or pending": 30,
     "no price": 4,
     "implausible price": 0,
-    "stale": 21
+    "stale": 22
   },
   "bridge": {
     "purchasePrice": 880000,
@@ -21,7 +21,7 @@
       2021,
       2023
     ],
-    "count": 15,
+    "count": 14,
     "comparables": [
       {
         "registration": "N585TX",
@@ -46,19 +46,6 @@
         "price": 750000,
         "modified": "2026-09-28",
         "link": "https://lonemountainaircraft.com/inventory/n843md/",
-        "certified": false,
-        "available": true
-      },
-      {
-        "registration": "N918JW",
-        "serial": "2365",
-        "year": 2021,
-        "generation": "G6",
-        "variation": "GTS",
-        "hours": 1165,
-        "price": 769900,
-        "modified": "2026-07-08",
-        "link": "https://aerista.com/showroom/n918jw/",
         "certified": false,
         "available": true
       },
@@ -89,6 +76,19 @@
         "available": true
       },
       {
+        "registration": "N456KG",
+        "serial": "8979",
+        "year": 2022,
+        "generation": "G6",
+        "variation": "GTS",
+        "hours": 700,
+        "price": 815000,
+        "modified": "2026-10-06",
+        "link": "https://lonemountainaircraft.com/inventory/n456kg/",
+        "certified": false,
+        "available": true
+      },
+      {
         "registration": "N2255T",
         "serial": "9073",
         "year": 2023,
@@ -98,19 +98,6 @@
         "price": 824900,
         "modified": "2026-09-26",
         "link": "https://aerista.com/showroom/n2255t/",
-        "certified": false,
-        "available": true
-      },
-      {
-        "registration": "N456KG",
-        "serial": "8979",
-        "year": 2022,
-        "generation": "G6",
-        "variation": "GTS",
-        "hours": 700,
-        "price": 825000,
-        "modified": "2026-09-18",
-        "link": "https://lonemountainaircraft.com/inventory/n456kg/",
         "certified": false,
         "available": true
       },
@@ -219,7 +206,7 @@
         "available": true
       }
     ],
-    "median": 839900,
+    "median": 844900.0,
     "marketValue": 850000
   },
   "proposals": [],
