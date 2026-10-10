@@ -1,13 +1,18 @@
 {
-  "version": "v2026-10-04.2",
-  "publishedAt": "2026-10-05T00:57:48.039Z",
-  "note": "Bridge aircraft: $880,000 is the purchase price (fixed); lease terms now the current SR22T Leasing Program ($5,208/month incl. 14 hrs, $372 extra hour, $410 hourly). No program figures changed.",
+  "version": "v2026-10-10.1",
+  "publishedAt": "2026-10-10T18:13:15.044Z",
+  "note": "Founder's Circle settings added (5% activation, 25% annual premium, 50% of premium to the liquidity reserve; 3 G7+ positions) so the Founder's Circle Summary is built from the costing. No program figures changed.",
   "baseline": "G7+",
   "common": {
     "fixedCost": 91508,
     "closing": 6140,
     "taxRate": 0.078,
     "commissionRate": 0,
+    "founders": {
+      "activationRate": 0.05,
+      "premiumRate": 0.25,
+      "reserveShare": 0.5
+    },
     "market": {
       "roundTo": 25000,
       "maxListingAgeDays": 90
@@ -23,6 +28,9 @@
       "approx": false,
       "shares": 15,
       "sharesRemaining": 14,
+      "founders": {
+        "positions": 3
+      },
       "maxHours": 96,
       "basePrice": 1304900,
       "options": 90600,
