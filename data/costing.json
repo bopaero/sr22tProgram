@@ -1,13 +1,18 @@
 {
-  "version": "v2026-10-13.1",
-  "publishedAt": "2026-10-13T18:24:23.695Z",
-  "note": "Bridge post-pay option (Financial Detail Sheet Option 2) added from Rev_8: acquisition costs $24,765, engine/powerplant reserve $91,725, bridge annual program requirement $332,295 (all shares). No program figures changed.",
+  "version": "v2026-10-13.2",
+  "publishedAt": "2026-10-13T18:49:13.275Z",
+  "note": "Operating-cost estimates moved into the costing (fuel/oil/TKS ~$130 per flight hour; contract pilot $500-$1,500 per day; Raymond chose the Financial Detail Sheet figures) so the 1-pager and Financial Detail Sheet agree. No program figures changed.",
   "baseline": "G7+",
   "common": {
     "fixedCost": 91508,
     "closing": 6140,
     "taxRate": 0.078,
     "commissionRate": 0,
+    "operating": {
+      "fuelPerHour": 130,
+      "pilotDayMin": 500,
+      "pilotDayMax": 1500
+    },
     "founders": {
       "activationRate": 0.05,
       "premiumRate": 0.25,

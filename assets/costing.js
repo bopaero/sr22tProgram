@@ -44,6 +44,10 @@
     premiumRate:      { min: 0,    max: 2 },       // annual premium, share of the Annual Program Fee
     reserveShare:     { min: 0,    max: 1 },       // share of each annual premium allocated to the liquidity reserve
     positions:        { min: 0,    max: 30,     integer: true },   // Founder positions on a program
+    // Operating-cost estimates quoted on the sheets (owners pay actual cost; Raymond 2026-10-13)
+    fuelPerHour:      { min: 0,    max: 5000 },    // average fuel/oil(/TKS) cost per flight hour
+    pilotDayMin:      { min: 0,    max: 20000 },   // contract pilot day rate, low end
+    pilotDayMax:      { min: 0,    max: 20000 },
     commissionRate:   { min: 0,    max: 0.1 },     // sales commission, on aircraft acquisition value
     // Bridge aircraft
     purchasePrice:    { min: 1e5,  max: 3e6 },     // what bop Aero paid (fixed; not a market estimate)
@@ -123,6 +127,11 @@
       if (p.features !== undefined) checkFeatures(errors, where, p.features, labels);
     });
     if (!keys[c.baseline]) errors.push('baseline must name one of the programs');
+    if (common.operating !== undefined) {
+      var op = common.operating || {};
+      ['fuelPerHour', 'pilotDayMin', 'pilotDayMax'].forEach(function (f) { checkNumber(errors, 'common operating', f, op[f]); });
+      if (op.pilotDayMin > op.pilotDayMax) errors.push('common operating pilot day rate range runs backwards');
+    }
     if (common.founders !== undefined) {
       ['activationRate', 'premiumRate', 'reserveShare'].forEach(function (f) { checkNumber(errors, 'common founders', f, (common.founders || {})[f]); });
     }

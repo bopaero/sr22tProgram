@@ -3,8 +3,8 @@
   bop Aero — 2026 Cirrus SR22T Program Economics (Financial Detail Sheet, 2 pages).
   Rebuilt from Raymond's Pages sheet (Rev_8) on 2026-10-13 so it can't drift:
   Option 1 (new aircraft, bridge pre-pay) and Option 2 (bridge post-pay) figures,
-  the Founder's Circle fee and the share counts all come from data/costing.json
-  through assets/costing.js. Operating-cost estimates and footnote wording are
+  the Founder's Circle fee, the share counts and the operating-cost estimates
+  all come from data/costing.json through assets/costing.js. Footnote wording is
   edited here. The PDF is generated on every publish.
 -->
 <html lang="en">
@@ -65,6 +65,11 @@ function words(n) {
            'sixteen','seventeen','eighteen','nineteen','twenty'][n];
   return w ? w.charAt(0).toUpperCase() + w.slice(1) + ' (' + n + ')' : String(n);
 }
+function opCosts(common) {   // operating-cost estimates live in the costing (common.operating)
+  var o = common.operating;
+  if (!o) throw new Error('The costing has no operating-cost estimates (common.operating).');
+  return { fuel: money(o.fuelPerHour), pilot: money(o.pilotDayMin) + '-' + money(o.pilotDayMax) };
+}
 function row(label, value, cls) { return '<div class="row' + (cls ? ' ' + cls : '') + '"><span>' + label + '</span><b>' + value + '</b></div>'; }
 function foot(version) {
   return '<footer class="foot"><span>bopaero.com</span><span>(513) 450-2FLY</span><span>info@bopaero.com</span><span class="ver">' + esc(version) + '</span></footer>';
@@ -73,7 +78,7 @@ function foot(version) {
 function render(costing) {
   var problems = SR22TCosting.validate(costing);
   if (problems.length) throw new Error('Costing is not valid: ' + problems.join('; '));
-  var d = SR22TCosting.derive(costing), p = d.baseline, b = d.bridge, pp = b && b.postPay;
+  var d = SR22TCosting.derive(costing), p = d.baseline, b = d.bridge, pp = b && b.postPay, op = opCosts(d.common);
   if (!pp) throw new Error('The costing has no bridge post-pay figures.');
   var n = p.shares;
   // Option 1 breakdown per share; the acquisition line carries everything that is not aircraft or tax
@@ -126,7 +131,7 @@ function render(costing) {
         row('Founder’s Circle (billed annually)<sup>4</sup>', money(p.founderPremium), 'alt') : '') +
       '<div class="notes">' +
         '<p>* Subject to change annually due to material and supply chain constraints. However, Founder’s Circle fees are fixed until replaced by a new program aircraft.</p>' +
-        '<p>** Fuel/Oil costs average ~$130 per flight hr and are subject to market fluctuations. Contract pilot costs can vary from pilot to pilot based on their experience. Generally speaking, daily rates from $500-$1500 per day + expenses are good estimates for planning purposes.</p>' +
+        '<p>** Fuel/Oil costs average ~' + op.fuel + ' per flight hr and are subject to market fluctuations. Contract pilot costs can vary from pilot to pilot based on their experience. Generally speaking, daily rates from ' + op.pilot + ' per day + expenses are good estimates for planning purposes.</p>' +
         '<p>† Owners will pay the bridge aircraft annual program fee until the new aircraft is acquired. The annual program fee will then be reset to reflect the SR22T GTS model received.</p>' +
         '<p>†† Projected capital requirements based on aircraft depreciation with anticipated usage prior to new aircraft delivery.</p>' +
         '<p><sup>1</sup> Acquisition costs such as taxes, warranties, and legal registrations are estimated and included as part of the price.</p>' +
