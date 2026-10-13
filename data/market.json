@@ -1,16 +1,16 @@
 {
-  "checkedAt": "2026-10-11T16:41:16+00:00",
+  "checkedAt": "2026-10-13T18:23:47+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
   "costingVersion": "v2026-10-10.1",
-  "feedListings": 374,
-  "modelListings": 134,
+  "feedListings": 376,
+  "modelListings": 135,
   "excluded": {
-    "sold or pending": 30,
+    "sold or pending": 31,
     "no price": 4,
     "implausible price": 0,
-    "stale": 22
+    "stale": 21
   },
   "bridge": {
     "purchasePrice": 880000,
@@ -21,7 +21,7 @@
       2021,
       2023
     ],
-    "count": 14,
+    "count": 16,
     "comparables": [
       {
         "registration": "N585TX",
@@ -29,9 +29,9 @@
         "year": 2021,
         "generation": "G6",
         "variation": "GTS",
-        "hours": 1605,
+        "hours": 1635,
         "price": 669900,
-        "modified": "2026-09-29",
+        "modified": "2026-10-12",
         "link": "https://cirrusaircraft.com/aircraft-listings/sr22t-g6-gts-2360-n585tx/",
         "certified": false,
         "available": true
@@ -46,6 +46,19 @@
         "price": 750000,
         "modified": "2026-09-28",
         "link": "https://lonemountainaircraft.com/inventory/n843md/",
+        "certified": false,
+        "available": true
+      },
+      {
+        "registration": "N918JW",
+        "serial": "2365",
+        "year": 2021,
+        "generation": "G6",
+        "variation": "GTS",
+        "hours": 1195,
+        "price": 769900,
+        "modified": "2026-10-12",
+        "link": "https://aerista.com/showroom/n918jw/",
         "certified": false,
         "available": true
       },
@@ -190,6 +203,19 @@
         "modified": "2026-09-28",
         "link": "https://cirrusaircraft.com/aircraft-listings/9376-n82au/",
         "certified": true,
+        "available": true
+      },
+      {
+        "registration": "N824EB",
+        "serial": "9155",
+        "year": 2023,
+        "generation": "G6",
+        "variation": "GTS",
+        "hours": 380,
+        "price": 899900,
+        "modified": "2026-10-13",
+        "link": "https://aerista.com/showroom/n824eb/",
+        "certified": false,
         "available": true
       },
       {
