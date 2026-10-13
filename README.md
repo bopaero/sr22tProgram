@@ -53,3 +53,15 @@ Raymond's Pages 1-pager on 2026-10-10. Program figures come from the costing lik
 the document; operating-cost estimates and aircraft specifications are wording in
 `expo.html`. The Publish workflow builds it with the document (fails unless exactly
 1 page with the version stamp) and archives `versions/<version>-expo.pdf`.
+
+## Financial Detail Sheet
+
+`financial.html` → `bop-Aero-SR22T-Financial-Detail-Sheet.pdf` (2 pages), rebuilt
+from Raymond's Pages sheet (Rev_8) on 2026-10-13. Option 1 (new aircraft, bridge
+pre-pay) comes from the G7+ program; Option 2 (bridge post-pay) from the costing's
+`bridge` block: purchase price, tax, acquisitionCosts, engineReserve and
+annualProgramTotal (all shares), divided by the program's shares — the balance
+due at the new-aircraft purchase is the G7+ share price minus the post-pay
+investment. Founder's Circle fee = the G7+ Founder premium. Footnote wording and
+the fuel/pilot estimates are edited in `financial.html`. Archived per version as
+`versions/<version>-financial.pdf`.

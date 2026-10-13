@@ -90,7 +90,7 @@ button.small { font-size:12px; padding:5px 10px; }
     </section>
 
     <section class="panel" style="margin-top:16px">
-      <h2>Bridge aircraft <small>internal — never shown to customers</small></h2>
+      <h2>Bridge aircraft <small>loan, insurance and lease economics are internal; post-pay option figures appear on the Financial Detail Sheet</small></h2>
       <p class="muted" id="bridgeModel"></p>
       <div class="tw"><table class="common"><tbody id="bridgeRows"></tbody></table></div>
       <div class="tw" style="margin-top:10px"><table><thead><tr><th>Bridge economics</th><th>Published</th><th>Draft</th></tr></thead><tbody id="bridgeRes"></tbody></table></div>
@@ -170,6 +170,9 @@ button.small { font-size:12px; padding:5px 10px; }
     ['leaseIncludedHours', 'Leasing Program: hours included per month', 'int'],
     ['leaseExtraHourRate', 'Leasing Program: each additional hour', 'money'],
     ['leaseHourlyRate', 'Leasing Program: hourly lease rate', 'money'],
+    ['acquisitionCosts', 'Post-pay option: bop Aero acquisition costs (all shares; customer-facing)', 'money'],
+    ['engineReserve', 'Post-pay option: Engine/Powerplant Reserve (all shares; customer-facing)', 'money'],
+    ['annualProgramTotal', 'Post-pay option: bridge annual program requirement (all shares; customer-facing)', 'money'],
     ['market.yearFrom', 'Market comparables: model year from', 'year'],
     ['market.yearTo', 'Market comparables: model year to', 'year']
   ];
@@ -177,7 +180,10 @@ button.small { font-size:12px; padding:5px 10px; }
     ['tax', 'Use tax on purchase price'], ['monthlyCost', 'Carrying cost / month (loan + insurance)'],
     ['monthlyLease', 'Lease revenue / month (one monthly lease)'], ['includedHourRate', 'Effective rate of the included hours'],
     ['monthlyNet', 'Net / month'], ['annualNet', 'Net / year'],
-    ['breakEvenHours', 'Leased hours / month to cover carrying cost', 'hours']
+    ['breakEvenHours', 'Leased hours / month to cover carrying cost', 'hours'],
+    ['postPay.investment', 'Post-pay: owner investment / share (customer-facing)'],
+    ['postPay.dueAtNewAircraft', 'Post-pay: due at new aircraft purchase / share (customer-facing)'],
+    ['postPay.annualFee', 'Post-pay: bridge annual program fee / share (customer-facing)']
   ];
   var STATUS_LABELS = SR22TCosting.FEATURE_TEXT;     // the same wording the document and calculator show
   function progFields() {
@@ -319,7 +325,7 @@ button.small { font-size:12px; padding:5px 10px; }
     if (!now.bridge) { $('bridgeRes').innerHTML = ''; return; }
     $('bridgeRes').innerHTML = BRIDGE_RESULTS.map(function (r) {
       var f = function (v) { return v == null ? '—' : r[2] === 'hours' ? v.toFixed(1) + ' hrs' : (v < 0 ? '−' : '') + money(Math.abs(v)); };
-      return '<tr><td>' + r[1] + '</td><td>' + f(was.bridge[r[0]]) + '</td><td>' + f(now.bridge[r[0]]) + '</td></tr>';
+      return '<tr><td>' + r[1] + '</td><td>' + f(getPath(was.bridge, r[0])) + '</td><td>' + f(getPath(now.bridge, r[0])) + '</td></tr>';
     }).join('');
   }
 

@@ -53,7 +53,12 @@
     leaseMonthly:     { min: 0,    max: 1e5 },     // monthly lease price, prepaid
     leaseIncludedHours:{ min: 0,   max: 300, integer: true },   // hours included in the monthly lease
     leaseExtraHourRate:{ min: 0,   max: 5000 },    // per hour beyond the included hours
-    leaseHourlyRate:  { min: 0,    max: 5000 }     // hourly lease (case by case)
+    leaseHourlyRate:  { min: 0,    max: 5000 },    // hourly lease (case by case)
+    // Bridge post-pay option (Financial Detail Sheet "Option 2", Raymond 2026-10-13): owners buy
+    // into the bridge aircraft now and pay the balance when the new aircraft is bought.
+    acquisitionCosts: { min: 0,    max: 5e5 },     // bop Aero program acquisition costs, bridge aircraft (all shares)
+    engineReserve:    { min: 0,    max: 5e5 },     // one-time Engine/Powerplant Reserve (all shares), in lieu of a Future Value Reserve
+    annualProgramTotal:{ min: 0,   max: 2e6 }      // bridge aircraft annual program requirement (all shares)
   };
 
   function checkNumber(errors, where, field, value) {
@@ -129,6 +134,7 @@
       var b = c.bridge || {};
       if (typeof b.model !== 'string' || !b.model.trim()) errors.push('bridge aircraft model is missing');
       ['purchasePrice', 'monthlyLoan', 'monthlyInsurance', 'leaseMonthly', 'leaseIncludedHours', 'leaseExtraHourRate', 'leaseHourlyRate'].forEach(function (f) { checkNumber(errors, 'bridge', f, b[f]); });
+      ['acquisitionCosts', 'engineReserve', 'annualProgramTotal'].forEach(function (f) { if (b[f] !== undefined) checkNumber(errors, 'bridge', f, b[f]); });
       if (b.market !== undefined) {
         var m = b.market || {};
         if (typeof m.model !== 'string' || !m.model) errors.push('bridge comparables model is missing');
@@ -205,6 +211,19 @@
       bridge.breakEvenHours   = bridge.monthlyNet >= 0 ? b.leaseIncludedHours
                               : b.leaseExtraHourRate ? b.leaseIncludedHours + (-bridge.monthlyNet) / b.leaseExtraHourRate : null;
       if (b.features) bridge.features = deriveFeatures(b.features);
+      // Post-pay option, per share of the program the bridge aircraft serves
+      var prog = byKey[c.baseline];
+      if (prog && b.acquisitionCosts !== undefined && b.engineReserve !== undefined && b.annualProgramTotal !== undefined) {
+        var n = prog.shares;
+        bridge.postPay = {
+          price: b.purchasePrice / n, tax: bridge.tax / n,
+          acquisitionCosts: b.acquisitionCosts / n, engineReserve: b.engineReserve / n,
+          annualFee: b.annualProgramTotal / n
+        };
+        var pp = bridge.postPay;
+        pp.investment = pp.price + pp.tax + pp.acquisitionCosts + pp.engineReserve;
+        pp.dueAtNewAircraft = prog.capPerShare - pp.investment;   // balance when the new aircraft is bought
+      }
     }
     return {
       version: c.version, publishedAt: c.publishedAt, common: common,

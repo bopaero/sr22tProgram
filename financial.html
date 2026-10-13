@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--
+  bop Aero — 2026 Cirrus SR22T Program Economics (Financial Detail Sheet, 2 pages).
+  Rebuilt from Raymond's Pages sheet (Rev_8) on 2026-10-13 so it can't drift:
+  Option 1 (new aircraft, bridge pre-pay) and Option 2 (bridge post-pay) figures,
+  the Founder's Circle fee and the share counts all come from data/costing.json
+  through assets/costing.js. Operating-cost estimates and footnote wording are
+  edited here. The PDF is generated on every publish.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>2026 Cirrus SR22T Program Economics — bop Aero</title>
+<style>
+:root { --orange:#FF6700; --ink:#1a1a1a; --muted:#6b6b70; --rule:#d9d9de; --stripe:#efeff2; color-scheme: light; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: #e9e9ec; color: var(--ink); font-family: Verdana, Tahoma, Arial, sans-serif; }
+.page { background:#fff; max-width: 8.5in; margin: 20px auto; padding: 0.42in 0.45in 0.3in; display:flex; flex-direction:column; box-shadow:0 2px 14px rgba(0,0,0,.12); }
+.band { background: var(--orange); color:#fff; text-align:center; padding: 12px 16px 14px; }
+.band img { display:block; width: 140px; height:auto; margin: 0 auto 6px; }
+.band h1 { margin:0; font-size: 22px; letter-spacing: .16em; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,.25); }
+.hero { display:block; width:100%; aspect-ratio: 1413 / 560; object-fit: cover; }
+.opt { text-align:center; font-size: 22px; font-weight: bold; text-decoration: underline; margin: 18px 0 6px; }
+.optsub { text-align:center; font-size: 15px; font-weight: bold; margin: 0 0 10px; }
+.row { display:flex; justify-content:space-between; align-items:baseline; padding: 6px 6px; font-size: 12px; border-top: 1px solid var(--rule); }
+.row.alt { background: var(--stripe); }
+.row b { font-size: 14px; }
+.center { text-align:center; font-size: 11px; margin: 4px 0 10px; }
+.detail { margin: 6px 0 0 52px; border-left: 1px solid #222; padding-left: 0; }
+.detail h4 { text-align:center; font-size: 12.5px; margin: 10px 0 6px; }
+.detail .row { margin-left: 0; }
+.detail .sub { padding-left: 120px; font-style: italic; color: #333; }
+.detail .sub b { font-weight: normal; font-style: italic; font-size: 12.5px; }
+.desc { font-style: italic; color: #555; font-size: 10.5px; text-align: right; padding: 4px 6px 6px; background: var(--stripe); }
+.over { text-align:center; font-size: 11px; margin: 10px 0 0; }
+.stars { text-align:center; letter-spacing: .4em; margin: 12px 0 2px; font-weight: bold; }
+h3.fc { text-align:center; font-size: 16px; margin: 6px 0 8px; }
+.notes { font-size: 8.3px; color: var(--muted); font-style: italic; line-height: 1.35; margin: 10px 0 0; }
+.notes p { margin: 0 0 2px; }
+sup { font-size: 65%; }
+.foot { margin-top:auto; padding-top: 12px; display:grid; grid-template-columns: 1fr 1fr 1fr; font-weight:bold; letter-spacing:.38em; font-size: 10.5px; text-align:center; position:relative; }
+.foot .ver { position:absolute; right:0; bottom:-13px; letter-spacing:0; font-weight:normal; font-size: 8.5px; color: var(--muted); }
+.err { color:#b91c1c; padding: 20px; }
+@page { size: letter; margin: 0; }
+@media print {
+  body { background:#fff; }
+  .page { width: 8.5in; height: 11in; max-width:none; margin:0; box-shadow:none; overflow:hidden; break-after: page; }
+  .page:last-child { break-after: auto; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media (max-width: 640px) { .page { padding: 16px; } .detail { margin-left: 12px; } .detail .sub { padding-left: 16px; } .foot { grid-template-columns: 1fr; letter-spacing:.2em; gap:4px; } .foot .ver { position: static; } }
+</style>
+</head>
+<body>
+<main id="doc"><noscript><p class="err">This page needs JavaScript to display.</p></noscript></main>
+<script src="assets/costing.js"></script>
+<script>
+function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+function esc(s) { return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function words(n) {
+  var w = ['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen',
+           'sixteen','seventeen','eighteen','nineteen','twenty'][n];
+  return w ? w.charAt(0).toUpperCase() + w.slice(1) + ' (' + n + ')' : String(n);
+}
+function row(label, value, cls) { return '<div class="row' + (cls ? ' ' + cls : '') + '"><span>' + label + '</span><b>' + value + '</b></div>'; }
+function foot(version) {
+  return '<footer class="foot"><span>bopaero.com</span><span>(513) 450-2FLY</span><span>info@bopaero.com</span><span class="ver">' + esc(version) + '</span></footer>';
+}
+
+function render(costing) {
+  var problems = SR22TCosting.validate(costing);
+  if (problems.length) throw new Error('Costing is not valid: ' + problems.join('; '));
+  var d = SR22TCosting.derive(costing), p = d.baseline, b = d.bridge, pp = b && b.postPay;
+  if (!pp) throw new Error('The costing has no bridge post-pay figures.');
+  var n = p.shares;
+  // Option 1 breakdown per share; the acquisition line carries everything that is not aircraft or tax
+  var retail = p.acquisition / n, tax = p.tax / n, acq = p.capPerShare - retail - tax;
+  var model = esc(b.model.replace(/^(\d{4}) Cirrus /, '$1 Cirrus '));
+  var fc = p.founders && p.founderPremium !== undefined;
+
+  var page1 =
+    '<section class="page">' +
+      '<div class="band"><img src="assets/bop-aero-logo.svg" alt="bop Aero"><h1>2026 Cirrus SR22T Program Economics</h1></div>' +
+      '<img class="hero" src="assets/sr22t-n497nt-expo.jpg" alt="Cirrus SR22T N497NT in flight above the clouds">' +
+      '<div class="opt">OPTION 1</div>' +
+      '<div class="optsub">Bridge Aircraft with Program pre-pay<sup>6,7</sup></div>' +
+      row('Owner Investment (per share)', money(p.capPerShare), 'alt') +
+      '<p class="center">Operational costs such as consumables, crew, etc. not included**</p>' +
+      '<div class="detail">' +
+        '<h4>New Aircraft Details (per Share)</h4>' +
+        row('Owner Investment', money(p.capPerShare)) +
+        row('Cirrus SR22T GTS G7+ Retail Price', money(retail), 'sub alt') +
+        row('Estimated Taxes<sup>2</sup>', money(tax), 'sub') +
+        row('bop Aero Program Acquisition Costs<sup>3</sup>', money(acq), 'sub alt') +
+        '<h4>Projected Program Fee Details (per Share)</h4>' +
+        row('Projected SR22T GTS G7+ Annual Program Fee*†', '~' + money(p.annualFee)) +
+        '<div class="desc">Insurance, Storage, Maintenance, Cleaning &amp; Detailing, Internet, Flight Data, Management fee,<br>Fleet Modernization-Future Value Reserve</div>' +
+      '</div>' +
+      '<p class="over">(over)</p>' +
+      foot(d.version) +
+    '</section>';
+
+  var page2 =
+    '<section class="page">' +
+      '<div class="opt" style="margin-top:0">OPTION 2</div>' +
+      '<div class="optsub">Bridge Aircraft with Program post-pay<sup>6,7</sup></div>' +
+      row('Owner Investment (per share)', money(pp.investment) + '<sup>1</sup>', 'alt') +
+      row('Projected Capital Requirement due at the time of new aircraft purchase††', '~' + money(pp.dueAtNewAircraft)) +
+      '<div class="detail">' +
+        '<h4>Bridge Aircraft Details (per Share)</h4>' +
+        row('Owner Investment', money(pp.investment)) +
+        row(model + ' Acquisition Price', money(pp.price), 'sub alt') +
+        row('Estimated Taxes<sup>2</sup>', money(pp.tax), 'sub') +
+        row('bop Aero Program Acquisition Costs<sup>3</sup>', money(pp.acquisitionCosts), 'sub alt') +
+        row('Engine/Powerplant Reserve<sup>5</sup>', money(pp.engineReserve), 'sub') +
+        '<h4>Bridge Aircraft Program Fee (per Share)</h4>' +
+        row(model.replace(/ Cirrus /, ' ') + ' Annual Program Fee*†<sup>5</sup>', '~' + money(pp.annualFee)) +
+        '<div class="desc">Insurance, Storage, Maintenance, Cleaning &amp; Detailing, Internet, Flight Data, Management fee</div>' +
+      '</div>' +
+      (fc ?
+        '<div class="stars">* * *</div>' +
+        '<h3 class="fc">Founder’s Circle Program (optional)</h3>' +
+        row('Founder’s Circle (billed annually)<sup>4</sup>', money(p.founderPremium), 'alt') : '') +
+      '<div class="notes">' +
+        '<p>* Subject to change annually due to material and supply chain constraints. However, Founder’s Circle fees are fixed until replaced by a new program aircraft.</p>' +
+        '<p>** Fuel/Oil costs average ~$130 per flight hr and are subject to market fluctuations. Contract pilot costs can vary from pilot to pilot based on their experience. Generally speaking, daily rates from $500-$1500 per day + expenses are good estimates for planning purposes.</p>' +
+        '<p>† Owners will pay the bridge aircraft annual program fee until the new aircraft is acquired. The annual program fee will then be reset to reflect the SR22T GTS model received.</p>' +
+        '<p>†† Projected capital requirements based on aircraft depreciation with anticipated usage prior to new aircraft delivery.</p>' +
+        '<p><sup>1</sup> Acquisition costs such as taxes, warranties, and legal registrations are estimated and included as part of the price.</p>' +
+        '<p><sup>2</sup> Taxes vary from state to state and county to county. Taxes will be calculated based on the location that aircraft is based.</p>' +
+        '<p><sup>3</sup> Acquisition costs borne by bop Aero to set up and manage each program aircraft. Includes support equipment and parts stores.</p>' +
+        (fc ? '<p><sup>4</sup> ' + words(p.founders.positions) + ' Shares reserved for Founder’s Circle program per aircraft.</p>' : '') +
+        '<p><sup>5</sup> In lieu of a Future Value Reserve used for aircraft modernization, the bridge aircraft post-pay option substitutes a one time Engine/Power-plant Reserve fee. This is to mitigate against engine and power-plant costs not covered by the bridge aircraft’s “Cirrus Spinner-to-tail warranty”. Any monies not used from this fund will be credited to each owner’s capital requirement necessary to acquire the new Cirrus SR22T G7+ (or newer equivalent).</p>' +
+        '<p><sup>6</sup> Each share receives an annual allotment of days based on their annual flying hours. This is determined by ownership equity.</p>' +
+        '<p><sup>7</sup> ' + words(n) + ' shares available for purchase.</p>' +
+      '</div>' +
+      foot(d.version) +
+    '</section>';
+
+  document.getElementById('doc').innerHTML = page1 + page2;
+  document.documentElement.setAttribute('data-rendered', d.version);   // build-pdf.py waits for this
+}
+fetch('data/costing.json', { cache: 'no-cache' })
+  .then(function(r){ if (!r.ok) throw new Error('costing HTTP ' + r.status); return r.json(); })
+  .then(render)
+  .catch(function(err){
+    document.getElementById('doc').innerHTML = '<p class="err">This page could not be displayed. ' + esc(err.message || err) + '</p>';
+    document.documentElement.setAttribute('data-render-error', String(err.message || err));
+  });
+</script>
+</body>
+</html>

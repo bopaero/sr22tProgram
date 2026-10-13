@@ -1,7 +1,7 @@
 {
-  "version": "v2026-10-10.1",
-  "publishedAt": "2026-10-10T18:13:15.044Z",
-  "note": "Founder's Circle settings added (5% activation, 25% annual premium, 50% of premium to the liquidity reserve; 3 G7+ positions) so the Founder's Circle Summary is built from the costing. No program figures changed.",
+  "version": "v2026-10-13.1",
+  "publishedAt": "2026-10-13T18:24:23.695Z",
+  "note": "Bridge post-pay option (Financial Detail Sheet Option 2) added from Rev_8: acquisition costs $24,765, engine/powerplant reserve $91,725, bridge annual program requirement $332,295 (all shares). No program figures changed.",
   "baseline": "G7+",
   "common": {
     "fixedCost": 91508,
@@ -58,6 +58,9 @@
     "leaseIncludedHours": 14,
     "leaseExtraHourRate": 372,
     "leaseHourlyRate": 410,
+    "acquisitionCosts": 24765,
+    "engineReserve": 91725,
+    "annualProgramTotal": 332295,
     "market": {
       "model": "SR22T",
       "generation": "G6",
