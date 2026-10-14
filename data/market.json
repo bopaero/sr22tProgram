@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-10-13T18:23:47+00:00",
+  "checkedAt": "2026-10-14T15:52:38+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
-  "costingVersion": "v2026-10-10.1",
-  "feedListings": 376,
+  "costingVersion": "v2026-10-13.2",
+  "feedListings": 378,
   "modelListings": 135,
   "excluded": {
     "sold or pending": 31,
@@ -21,7 +21,7 @@
       2021,
       2023
     ],
-    "count": 16,
+    "count": 15,
     "comparables": [
       {
         "registration": "N585TX",
@@ -167,19 +167,6 @@
         "available": true
       },
       {
-        "registration": "N836ZJ",
-        "serial": "9063",
-        "year": 2023,
-        "generation": "G6",
-        "variation": "GTS",
-        "hours": 510,
-        "price": 875000,
-        "modified": "2026-07-15",
-        "link": "https://lonemountainaircraft.com/inventory/n836zj/",
-        "certified": false,
-        "available": true
-      },
-      {
         "registration": "N912YZ",
         "serial": "9450",
         "year": 2023,
@@ -232,7 +219,7 @@
         "available": true
       }
     ],
-    "median": 844900.0,
+    "median": 839900,
     "marketValue": 850000
   },
   "proposals": [],
