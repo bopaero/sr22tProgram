@@ -1,16 +1,16 @@
 {
-  "checkedAt": "2026-10-14T15:52:38+00:00",
+  "checkedAt": "2026-10-15T15:39:31+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
   "costingVersion": "v2026-10-13.2",
-  "feedListings": 378,
-  "modelListings": 135,
+  "feedListings": 385,
+  "modelListings": 139,
   "excluded": {
-    "sold or pending": 31,
+    "sold or pending": 32,
     "no price": 4,
     "implausible price": 0,
-    "stale": 21
+    "stale": 22
   },
   "bridge": {
     "purchasePrice": 880000,
@@ -148,7 +148,7 @@
         "variation": "GTS",
         "hours": 775,
         "price": 850000,
-        "modified": "2026-09-28",
+        "modified": "2026-10-15",
         "link": "https://cirrusaircraft.com/aircraft-listings/sr22t-g6-gts-9304-n81ae/",
         "certified": true,
         "available": true
