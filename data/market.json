@@ -1,16 +1,16 @@
 {
-  "checkedAt": "2026-10-15T15:39:31+00:00",
+  "checkedAt": "2026-10-16T15:25:15+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
   "costingVersion": "v2026-10-13.2",
-  "feedListings": 385,
+  "feedListings": 386,
   "modelListings": 139,
   "excluded": {
     "sold or pending": 32,
     "no price": 4,
     "implausible price": 0,
-    "stale": 22
+    "stale": 21
   },
   "bridge": {
     "purchasePrice": 880000,
@@ -21,7 +21,7 @@
       2021,
       2023
     ],
-    "count": 15,
+    "count": 16,
     "comparables": [
       {
         "registration": "N585TX",
@@ -29,9 +29,9 @@
         "year": 2021,
         "generation": "G6",
         "variation": "GTS",
-        "hours": 1635,
+        "hours": 1655,
         "price": 669900,
-        "modified": "2026-10-12",
+        "modified": "2026-10-16",
         "link": "https://cirrusaircraft.com/aircraft-listings/sr22t-g6-gts-2360-n585tx/",
         "certified": false,
         "available": true
@@ -217,9 +217,22 @@
         "link": "https://lonemountainaircraft.com/inventory/n166bg/",
         "certified": false,
         "available": true
+      },
+      {
+        "registration": "N76DW",
+        "serial": "9005",
+        "year": 2022,
+        "generation": "G6",
+        "variation": "GTS",
+        "hours": 340,
+        "price": 939900,
+        "modified": "2026-10-16",
+        "link": "https://aerista.com/showroom/n76dw/",
+        "certified": false,
+        "available": true
       }
     ],
-    "median": 839900,
+    "median": 844900.0,
     "marketValue": 850000
   },
   "proposals": [],
