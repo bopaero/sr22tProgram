@@ -1,31 +1,27 @@
 {
-  "version": "v2026-10-13.2",
-  "publishedAt": "2026-10-13T18:49:13.275Z",
-  "note": "Operating-cost estimates moved into the costing (fuel/oil/TKS ~$130 per flight hour; contract pilot $500-$1,500 per day; Raymond chose the Financial Detail Sheet figures) so the 1-pager and Financial Detail Sheet agree. No program figures changed.",
+  "version": "v2026-10-16.1",
+  "publishedAt": "2026-10-16T16:22:42.371Z",
+  "note": "Adjustment for Sales Commission.",
   "baseline": "G7+",
   "common": {
     "fixedCost": 91508,
     "closing": 6140,
     "taxRate": 0.078,
-    "commissionRate": 0,
-    "operating": {
-      "fuelPerHour": 130,
-      "pilotDayMin": 500,
-      "pilotDayMax": 1500
-    },
+    "commissionRate": 0.06,
     "founders": {
       "activationRate": 0.05,
       "premiumRate": 0.25,
       "reserveShare": 0.5
     },
+    "operating": {
+      "fuelPerHour": 130,
+      "pilotDayMin": 500,
+      "pilotDayMax": 1500
+    },
     "market": {
       "roundTo": 25000,
       "maxListingAgeDays": 90
     }
-  },
-  "featureLabels": {
-    "connectivity": "In-flight connectivity",
-    "safeReturn": "Garmin Safe Return emergency autoland"
   },
   "programs": [
     {
@@ -33,15 +29,15 @@
       "approx": false,
       "shares": 15,
       "sharesRemaining": 14,
-      "founders": {
-        "positions": 3
-      },
       "maxHours": 96,
       "basePrice": 1304900,
       "options": 90600,
       "connectivityCost": 3851,
       "management": 240000,
       "reserve": 178129,
+      "founders": {
+        "positions": 3
+      },
       "features": {
         "connectivity": {
           "status": "included",
@@ -85,5 +81,9 @@
     10000,
     25000,
     50000
-  ]
+  ],
+  "featureLabels": {
+    "connectivity": "In-flight connectivity",
+    "safeReturn": "Garmin Safe Return emergency autoland"
+  }
 }
