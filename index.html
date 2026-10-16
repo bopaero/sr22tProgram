@@ -245,6 +245,7 @@ function applyCosting(costing) {
 // ══════════════════════════════════════════════════════════════════════════
 function full(n)  { return '$' + Math.round(n).toLocaleString('en-US'); }
 function pct(x)   { return (x * 100).toFixed(2) + '%'; }
+function units(p) { return p.unitsPerShare + ' of ' + p.totalUnits + ' units (' + pct(p.equity) + ')'; }   // ownership units (2026-10-16)
 function rate(x)  { return String(+(x * 100).toFixed(2)) + '%'; }
 function esc(s) { return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 function words(n) {   // 15 → "fifteen (15)": share counts in prose, from the costing
@@ -288,9 +289,9 @@ function coverPage() {
     '<h2>Program at a Glance</h2>' +
     kv([
       ['Aircraft', 'New Cirrus SR22T G7+ GTS'],
-      ['Total ownership interests', p.interests],
+      ['Total ownership units', p.totalUnits],
       ['Shares available for purchase', p.shares],
-      ['Legal equity per interest', pct(p.equity)],
+      ['Ownership per share', units(p)],
       ['Capital per share (Program Cost)', full(p.capPerShare)],
       ['Annual Program Fee per share', full(p.annualFee)],
       ['Flying hours per share per year', 'Up to ' + p.maxHours],
@@ -299,8 +300,8 @@ function coverPage() {
       ['bop Aero hourly-use fee', '$0']
     ]) +
     '<div class="key">You own the aircraft. bop Aero manages it. There is no bop Aero occupied-hour fee to use an aircraft you already own.</div>' +
-    '<p class="note">The program includes one equal ownership interest retained by bop Aero. Owner program costs are allocated across the ' +
-      words(p.shares) + ' shares available for purchase. You may purchase more than one share, up to the number offered at the time of purchase.</p>';
+    '<p class="note">Ownership is held in units: each share holds ' + p.unitsPerShare + ' of ' + p.totalUnits + ' units and bop Aero retains one unit (' + pct(p.bopEquity) + '). Owner program costs are allocated across the ' +
+      words(p.shares) + ' shares available for purchase. You may purchase more than one share, up to the number offered at the time of purchase. Unit counts are distinct from the number of legal owners; ownership terms are subject to final legal review.</p>';
   return page('overview',
     '<div class="band cover"><img src="assets/bop-aero-logo.svg" alt="bop Aero">2026 SR22T G7+ Ownership Program' +
     '<span class="sub">New Cirrus SR22T G7+ GTS, shared ownership</span></div>', body);
@@ -311,10 +312,10 @@ function programPage() {
   var body =
     '<h2>Program Structure</h2>' +
     '<h3>1. Ownership Structure</h3>' + kv([
-      ['Total ownership interests', p.interests],
+      ['Total ownership units', p.totalUnits],
       ['Shares available for purchase', p.shares],
-      ['bop Aero retained interest', 1],
-      ['Legal equity per interest', pct(p.equity)],
+      ['Ownership per share', units(p)],
+      ['bop Aero retained', '1 of ' + p.totalUnits + ' units (' + pct(p.bopEquity) + ')'],
       ['Owner cost allocation', String(+(p.allocation * 100).toFixed(2)) + '% per owner share']
     ]) +
     '<h3>2. Acquisition &amp; Capitalization</h3>' + kv([
