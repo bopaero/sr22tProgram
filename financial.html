@@ -129,16 +129,17 @@ function render(costing) {
       (fc ?
         '<div class="stars">* * *</div>' +
         '<h3 class="fc">Founder’s Circle Program (optional)</h3>' +
+        row('Founder’s Circle Activation (one-time)<sup>4</sup>', money(p.founderActivation)) +
         row('Founder’s Circle (billed annually)<sup>4</sup>', money(p.founderPremium), 'alt') : '') +
       '<div class="notes">' +
-        '<p>* Subject to change annually due to material and supply chain constraints. However, Founder’s Circle fees are fixed until replaced by a new program aircraft.</p>' +
+        '<p>* Subject to change annually due to material and supply chain constraints. However, Founder’s Circle fees are fixed for the program duration, which is tied to the aircraft serial number.</p>' +
         '<p>** Fuel/Oil costs average ~' + op.fuel + ' per flight hr and are subject to market fluctuations. Contract pilot costs can vary from pilot to pilot based on their experience. Generally speaking, daily rates from ' + op.pilot + ' per day + expenses are good estimates for planning purposes.</p>' +
         '<p>† Owners will pay the bridge aircraft annual program fee until the new aircraft is acquired. The annual program fee will then be reset to reflect the SR22T GTS model received.</p>' +
         '<p>†† Projected capital requirements based on aircraft depreciation with anticipated usage prior to new aircraft delivery.</p>' +
         '<p><sup>1</sup> Acquisition costs such as taxes, warranties, and legal registrations are estimated and included as part of the price.</p>' +
         '<p><sup>2</sup> Taxes vary from state to state and county to county. Taxes will be calculated based on the location that aircraft is based.</p>' +
         '<p><sup>3</sup> Acquisition costs borne by bop Aero to set up and manage each program aircraft. Includes support equipment and parts stores.</p>' +
-        (fc ? '<p><sup>4</sup> ' + words(p.founders.positions) + ' Shares reserved for Founder’s Circle program per aircraft.</p>' : '') +
+        (fc ? '<p><sup>4</sup> ' + words(p.founders.positions) + ' Shares reserved for Founder’s Circle program per aircraft. See the Founder’s Circle Detail Sheet for Founder pricing and terms.</p>' : '') +
         '<p><sup>5</sup> In lieu of a Future Value Reserve used for aircraft modernization, the bridge aircraft post-pay option substitutes a one time Engine/Power-plant Reserve fee. This is to mitigate against engine and power-plant costs not covered by the bridge aircraft’s “Cirrus Spinner-to-tail warranty”. Any monies not used from this fund will be credited to each owner’s capital requirement necessary to acquire the new Cirrus SR22T G7+ (or newer equivalent).</p>' +
         '<p><sup>6</sup> Each share receives an annual allotment of days based on their annual flying hours. This is determined by ownership equity.</p>' +
         '<p><sup>7</sup> ' + words(n) + ' shares available for purchase.</p>' +
