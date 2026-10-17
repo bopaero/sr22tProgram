@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-10-16T15:25:15+00:00",
+  "checkedAt": "2026-10-17T14:18:25+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
-  "costingVersion": "v2026-10-13.2",
-  "feedListings": 386,
-  "modelListings": 139,
+  "costingVersion": "v2026-10-16.2",
+  "feedListings": 383,
+  "modelListings": 140,
   "excluded": {
-    "sold or pending": 32,
+    "sold or pending": 33,
     "no price": 4,
     "implausible price": 0,
     "stale": 21
@@ -199,8 +199,8 @@
         "generation": "G6",
         "variation": "GTS",
         "hours": 380,
-        "price": 899900,
-        "modified": "2026-10-13",
+        "price": 888900,
+        "modified": "2026-10-17",
         "link": "https://aerista.com/showroom/n824eb/",
         "certified": false,
         "available": true
