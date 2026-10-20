@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-10-19T17:36:40+00:00",
+  "checkedAt": "2026-10-20T15:42:30+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
   "costingVersion": "v2026-10-16.2",
-  "feedListings": 385,
-  "modelListings": 141,
+  "feedListings": 390,
+  "modelListings": 144,
   "excluded": {
     "sold or pending": 33,
     "no price": 4,
@@ -21,7 +21,7 @@
       2021,
       2023
     ],
-    "count": 16,
+    "count": 18,
     "comparables": [
       {
         "registration": "N585TX",
@@ -59,6 +59,19 @@
         "price": 769900,
         "modified": "2026-10-12",
         "link": "https://aerista.com/showroom/n918jw/",
+        "certified": false,
+        "available": true
+      },
+      {
+        "registration": "N33KX",
+        "serial": "2447",
+        "year": 2021,
+        "generation": "G6",
+        "variation": "GTS",
+        "hours": 715,
+        "price": 785000,
+        "modified": "2026-10-20",
+        "link": "https://lonemountainaircraft.com/inventory/n33kx/",
         "certified": false,
         "available": true
       },
@@ -228,6 +241,19 @@
         "price": 939900,
         "modified": "2026-10-16",
         "link": "https://aerista.com/showroom/n76dw/",
+        "certified": false,
+        "available": true
+      },
+      {
+        "registration": "N75HB",
+        "serial": "9328",
+        "year": 2023,
+        "generation": "G6",
+        "variation": "GTS",
+        "hours": 190,
+        "price": 949900,
+        "modified": "2026-10-19",
+        "link": "https://lonemountainaircraft.com/inventory/n75hb/",
         "certified": false,
         "available": true
       }
