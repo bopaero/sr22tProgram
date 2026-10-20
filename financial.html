@@ -141,7 +141,7 @@ function render(costing) {
         '<p><sup>3</sup> Acquisition costs borne by bop Aero to set up and manage each program aircraft. Includes support equipment and parts stores.</p>' +
         (fc ? '<p><sup>4</sup> ' + words(p.founders.positions) + ' Shares reserved for Founder’s Circle program per aircraft. See the Founder’s Circle Detail Sheet for Founder pricing and terms.</p>' : '') +
         '<p><sup>5</sup> In lieu of a Future Value Reserve used for aircraft modernization, the bridge aircraft post-pay option substitutes a one time Engine/Power-plant Reserve fee. This is to mitigate against engine and power-plant costs not covered by the bridge aircraft’s “Cirrus Spinner-to-tail warranty”. Any monies not used from this fund will be credited to each owner’s capital requirement necessary to acquire the new Cirrus SR22T G7+ (or newer equivalent).</p>' +
-        '<p><sup>6</sup> Each share receives an annual allotment of days based on their annual flying hours. This is determined by ownership equity.</p>' +
+        '<p><sup>6</sup> Each share receives up to ' + p.maxHours + ' flying hours per year, measured by the Hobbs meter. For scheduling, Flight Circle holds 5 hours per reserved day; only actual Hobbs time is deducted.</p>' +
         '<p><sup>7</sup> ' + words(n) + ' shares available for purchase.</p>' +
       '</div>' +
       foot(d.version) +
