@@ -31,9 +31,9 @@ matching the live calculator.
 
 ## Changing costing — the costing editor
 
-**https://sf50-costing.compilotrc.workers.dev/sr22t** — the same private editor
-(and Cloudflare Access login) as the SF50; its Worker lives in
-`sf50Program/admin/worker.js`, and this repo's editor page is `admin/editor.html`
+**https://bopaero-admin.compilotrc.workers.dev/sr22t/** — the same private editor
+(and Cloudflare Access login) as the SF50; its Worker (`bopaero-admin`) lives in
+bopaero/programs `admin/worker.js`, and this repo's editor page is `admin/editor.html`
 (bundled into that Worker). Publishing commits `data/costing.json` here; the
 **Publish** workflow builds the 5-page PDF and deploys site + PDF together.
 
