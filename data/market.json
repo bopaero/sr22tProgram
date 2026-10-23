@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-10-22T15:56:05+00:00",
+  "checkedAt": "2026-10-23T15:47:48+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
   "costingVersion": "v2026-10-16.2",
   "feedListings": 396,
-  "modelListings": 146,
+  "modelListings": 147,
   "excluded": {
     "sold or pending": 34,
     "no price": 3,
@@ -21,7 +21,7 @@
       2021,
       2023
     ],
-    "count": 18,
+    "count": 19,
     "comparables": [
       {
         "registration": "N585TX",
@@ -43,8 +43,8 @@
         "generation": "G6",
         "variation": "GTS",
         "hours": 905,
-        "price": 750000,
-        "modified": "2026-09-28",
+        "price": 730000,
+        "modified": "2026-10-23",
         "link": "https://lonemountainaircraft.com/inventory/n843md/",
         "certified": false,
         "available": true
@@ -180,6 +180,19 @@
         "available": true
       },
       {
+        "registration": "N523KA",
+        "serial": "9034",
+        "year": 2022,
+        "generation": "G6",
+        "variation": "GTS",
+        "hours": 235,
+        "price": 872500,
+        "modified": "2026-10-23",
+        "link": "https://lonemountainaircraft.com/inventory/n523ka/",
+        "certified": false,
+        "available": true
+      },
+      {
         "registration": "N912YZ",
         "serial": "9450",
         "year": 2023,
@@ -258,7 +271,7 @@
         "available": true
       }
     ],
-    "median": 844900.0,
+    "median": 849900,
     "marketValue": 850000
   },
   "proposals": [],
