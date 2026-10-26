@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-24T14:41:51+00:00",
+  "checkedAt": "2026-10-26T17:29:28+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
@@ -10,7 +10,7 @@
     "sold or pending": 34,
     "no price": 3,
     "implausible price": 0,
-    "stale": 21
+    "stale": 20
   },
   "bridge": {
     "purchasePrice": 880000,
@@ -238,8 +238,8 @@
         "generation": "G6",
         "variation": "GTS",
         "hours": 355,
-        "price": 909900,
-        "modified": "2026-09-04",
+        "price": 894900,
+        "modified": "2026-10-26",
         "link": "https://lonemountainaircraft.com/inventory/n166bg/",
         "certified": false,
         "available": true
