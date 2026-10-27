@@ -1,7 +1,7 @@
 {
-  "version": "v2026-10-16.2",
-  "publishedAt": "2026-10-16T16:27:26.000Z",
-  "note": "Ownership units added (Program Architecture, Oct 2026): each share holds unitsPerShare units and bop Aero retains 1 — G7+ 15×1+1 = 16 units (bop Aero 6.25%). Equity only; no program costs changed.",
+  "version": "v2026-10-27.1",
+  "publishedAt": "2026-10-27T19:09:20.625Z",
+  "note": "Dave Delbello signed LOI",
   "baseline": "G7+",
   "common": {
     "fixedCost": 91508,
@@ -27,7 +27,7 @@
     {
       "key": "G7+",
       "approx": false,
-      "shares": 15,
+      "shares": 14,
       "unitsPerShare": 1,
       "sharesRemaining": 14,
       "maxHours": 96,
