@@ -1,16 +1,16 @@
 {
-  "checkedAt": "2026-10-30T17:04:35+00:00",
+  "checkedAt": "2026-10-31T16:12:22+00:00",
   "source": "cirrusaircraft.com pre-owned listings",
   "roundTo": 25000,
   "maxListingAgeDays": 90,
   "costingVersion": "v2026-10-27.1",
-  "feedListings": 397,
-  "modelListings": 147,
+  "feedListings": 393,
+  "modelListings": 144,
   "excluded": {
-    "sold or pending": 37,
+    "sold or pending": 38,
     "no price": 3,
     "implausible price": 0,
-    "stale": 16
+    "stale": 15
   },
   "bridge": {
     "purchasePrice": 880000,
@@ -21,7 +21,7 @@
       2021,
       2023
     ],
-    "count": 20,
+    "count": 19,
     "comparables": [
       {
         "registration": "N585TX",
@@ -111,19 +111,6 @@
         "price": 815000,
         "modified": "2026-10-06",
         "link": "https://lonemountainaircraft.com/inventory/n456kg/",
-        "certified": false,
-        "available": true
-      },
-      {
-        "registration": "N2255T",
-        "serial": "9073",
-        "year": 2023,
-        "generation": "G6",
-        "variation": "GTS",
-        "hours": 885,
-        "price": 824900,
-        "modified": "2026-09-26",
-        "link": "https://aerista.com/showroom/n2255t/",
         "certified": false,
         "available": true
       },
@@ -284,7 +271,7 @@
         "available": true
       }
     ],
-    "median": 844900.0,
+    "median": 849900,
     "marketValue": 850000
   },
   "proposals": [],
